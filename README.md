@@ -87,13 +87,3 @@ python apps.py
 
 ---
 
-## 📜 License
-
-This project is licensed under the **MIT License** – you are free to use, modify, and distribute with attribution.
-
----
-
-## 👨‍💻 Author
-
-**Clevin D'Silva**
-MCA Project – Smart Agriculture Recommendation System
