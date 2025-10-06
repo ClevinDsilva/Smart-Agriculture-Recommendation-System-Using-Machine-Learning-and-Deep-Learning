@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta chaRset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart - AI Crop & Plant Detection</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #3A7D44;
+            --primary-dark: #2D5E36;
+            --primary-light: #D4EDDA;
+            --secondary-color: #FFA630;
+            --dark-color: #2C3E2D;
+            --light-color: #F8F9FA;
+            --danger-color: #E74C3C;
+            --success-color: #28A745;
+            --warning-color: #FFC107;
+            --info-color: #17A2B8;
+            --white: #fff;
+            --gray-light: #E9ECEF;
+            --gray: #CED4DA;
+            --gray-dark: #495057;
+            --max-width: 1200px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            background-color: var(--light-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--dark-color);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+            transition: var(--transition);
+            cuRsor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .button-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(58, 125, 68, 0.3);
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(58, 125, 68, 0.4);
+        }
+
+        .button-outline {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .button-outline:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .navbar-menu {
+            display: flex;
+        }
+
+        .navbar-item {
+            margin: 0 1.2rem;
+            position: relative;
+        }
+
+        .navbar-link {
+            padding: 0.5rem 0;
+            font-weight: 600;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-item.active .navbar-link {
+            color: var(--primary-color);
+        }
+
+        .navbar-item.active .navbar-link::after {
+            width: 100%;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-left: 0.8rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .navbar-button i {
+            margin-right: 0.5rem;
+        }
+
+        .navbar-button.login {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .navbar-button.login:hover {
+            background-color: var(--primary-light);
+        }
+
+        .navbar-button.register {
+            background-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(58, 125, 68, 0.3);
+        }
+
+        .navbar-button.register:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            cuRsor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 10rem 0 5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.pexels.com/photos/162622/greenhouse-plants-agriculture-agrarian-162622.jpeg') center/cover no-repeat;
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            line-height: 1.3;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray-dark);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background-color: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--gray-dark);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-light);
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1.2rem;
+            color: var(--dark-color);
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+        }
+
+        /* Detection Section */
+        .detection {
+            padding: 6rem 0;
+            background-color: var(--light-color);
+            position: relative;
+        }
+
+        .detection .container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .detection-content {
+            flex: 1;
+        }
+
+        .detection-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .detection-image img {
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .detection-steps {
+            margin-top: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .step-content p {
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+        }
+
+        /* Plant Library */
+        .plant-library {
+            padding: 6rem 0;
+            background-color: var(--white);
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .plant-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .plant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .plant-image {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .plant-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .plant-card:hover .plant-image img {
+            transform: scale(1.1);
+        }
+
+        .plant-content {
+            padding: 1.8rem;
+        }
+
+        .plant-content h3 {
+            color: var(--dark-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .plant-content p {
+            color: var(--gray-dark);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .plant-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .read-more i {
+            margin-left: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .read-more:hover {
+            color: var(--primary-dark);
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 0;
+            background-color: var(--light-color);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            border: 1px solid var(--gray-light);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary-light);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-content p {
+            color: var(--gray-dark);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            color: var(--dark-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 0;
+            background: linear-gradient(rgb(131, 204, 131), rgba(131, 205, 146, 0.9)), 
+                        url('https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg') center/cover no-repeat;
+            color: var(--gray-dark);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 5rem 0 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo .logo-icon {
+            color: var(--primary-color);
+        }
+
+        .footer p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .footer-links-column {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .footer-links-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-links-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links-column a {
+            opacity: 0.8;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links-column a:hover {
+            opacity: 1;
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .footer-bottom .disclaimer {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .detection .container {
+                flex-direction: column;
+            }
+            
+            .detection-image {
+                order: -1;
+                margin-bottom: 3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                margin-bottom: 3rem;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu, .navbar-actions {
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .navbar-menu.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+            }
+            
+            .navbar-item {
+                margin: 0.8rem 0;
+            }
+            
+            .navbar-actions.active {
+                display: flex;
+                position: absolute;
+                top: calc(80px + 220px);
+                left: 0;
+                width: 100%;
+                padding: 1.5rem;
+                background-color: var(--white);
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                justify-content: center;
+            }
+            
+            .hero {
+                padding-top: 6rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons, .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .cta h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="navbar-logo">
+                <i class="fas fa-seedling logo-icon"></i>
+                <span>AgriSmart</span>
+            </div>
+            <div class="mobile-menu-toggle" id="menuToggle">
+                <i class="fa-solid fa-baRs" id="menuIcon"></i>
+            </div>
+            <ul class="navbar-menu" id="navMenu">
+                <li class="navbar-item active"><a href="/" class="navbar-link">Home</a></li>
+                <li class="navbar-item"><a href="#features" class="navbar-link">Features</a></li>
+                <li class="navbar-item"><a href="#detection" class="navbar-link">Detection</a></li>
+                <li class="navbar-item"><a href="#library" class="navbar-link">Plant Library</a></li>
+                <li class="navbar-item"><a href="#testimonials" class="navbar-link">Testimonials</a></li>
+            </ul>
+            <div class="navbar-actions" id="navActions">
+                <a href="/enternew" class="navbar-button register"><i class="fa-solid fa-user-plus"></i><span>Register</span></a>
+                <a href="/userlogin" class="navbar-button login"><i class="fa-solid fa-right-to-bracket"></i><span>Login</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero fade-in">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Revolutionizing Agriculture with AI-Powered Plant Detection</h1>
+                <p>Identify crops, detect diseases, and optimize your farming practices with our advanced computer vision technology. Designed for farmeRs, agronomists, and plant enthusiasts.</p>
+                <div class="hero-buttons">
+                    <a href="#detection" class="button button-primary">Try Detection</a>
+                    <a href="/enternew" class="button button-outline">Get Started</a>
+                </div>
+            </div>
+            <div class="hero-image fade-in" data-delay="0.2s">
+                <img src="https://images.pexels.com/photos/1072824/pexels-photo-1072824.jpeg" alt="Farmer using tablet in field">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Advanced Agricultural Features</h2>
+                <p>Harnessing cutting-edge technology to transform your farming experience</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <i class="fas fa-leaf feature-icon"></i>
+                    <h3>Crop Identification</h3>
+                    <p>Accurately identify over 10,000 plant species with our advanced image recognition system.</p>
+                </div>
+                <div class="feature-card fade-in" data-delay="0.1s">
+                    <i class="fas fa-bug feature-icon"></i>
+                    <h3>Disease Detection</h3>
+                    <p>Early detection of 200+ plant diseases and pests to prevent crop damage and loss.</p>
+                </div>
+                <div class="feature-card fade-in" data-delay="0.2s">
+                    <i class="fas fa-flask feature-icon"></i>
+                    <h3>Nutrient Analysis</h3>
+                    <p>Identify nutrient deficiencies and get tailored recommendations for soil amendments.</p>
+                </div>
+                <div class="feature-card fade-in" data-delay="0.3s">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Growth Monitoring</h3>
+                    <p>Track plant development stages and receive optimal care recommendations for each phase.</p>
+                </div>
+                <div class="feature-card fade-in" data-delay="0.4s">
+                    <i class="fas fa-cloud-sun feature-icon"></i>
+                    <h3>Weather Integration</h3>
+                    <p>Get weather-specific recommendations to protect your crops from adveRse conditions.</p>
+                </div>
+                <div class="feature-card fade-in" data-delay="0.5s">
+                    <i class="fas fa-calendar-check feature-icon"></i>
+                    <h3>Seasonal Planning</h3>
+                    <p>Receive customized planting and harvesting schedules based on your location.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detection Section -->
+    <section class="detection" id="detection">
+        <div class="container">
+            <div class="detection-content fade-in">
+                <h2>Instant Plant Analysis</h2>
+                <p>Our advanced detection system provides immediate insights about your crops with just a photo. Simply upload an image of your plant and receive comprehensive analysis within seconds.</p>
+                
+                <div class="detection-steps">
+                    <div class="step fade-in" data-delay="0.1s">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Capture or Upload</h4>
+                            <p>Take a clear photo of your plant or upload an existing image from your device.</p>
+                        </div>
+                    </div>
+                    <div class="step fade-in" data-delay="0.2s">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>AI Analysis</h4>
+                            <p>Our system processes the image using advanced computer vision algorithms.</p>
+                        </div>
+                    </div>
+                    <div class="step fade-in" data-delay="0.3s">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Get Results</h4>
+                            <p>Receive detailed information about plant health, species, and care recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="#demo" class="button button-primary">Try Live Demo</a>
+            </div>
+            <div class="detection-image fade-in" data-delay="0.4s">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Plant Library -->
+    <section class="plant-library" id="library">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Comprehensive Plant Library</h2>
+                <p>Access detailed information about thousands of crops and plants</p>
+            </div>
+            <div class="library-grid">
+                <div class="plant-card fade-in">
+                    <div class="plant-image">
+                        <img src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg" alt="Tomato Plant">
+                    </div>
+                    <div class="plant-content">
+                        <h3>Tomato Varieties</h3>
+                        <p>Complete guide to tomato cultivation, including common diseases, pest control, and optimal growing conditions.</p>
+                        <div class="plant-meta">
+                            <span><i class="fas fa-seedling"></i> Annual</span>
+                            <span><i class="fas fa-sun"></i> Full Sun</span>
+                        </div>
+                        <a href="#" class="read-more">Explore Tomato Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="plant-card fade-in" data-delay="0.1s">
+                    <div class="plant-image">
+                        <img src="https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg" alt="Wheat Field">
+                    </div>
+                    <div class="plant-content">
+                        <h3>Wheat Cultivation</h3>
+                        <p>Essential information for wheat farmeRs including growth stages, yield optimization, and harvesting techniques.</p>
+                        <div class="plant-meta">
+                            <span><i class="fas fa-seedling"></i> Annual</span>
+                            <span><i class="fas fa-tint"></i> Moderate Water</span>
+                        </div>
+                        <a href="#" class="read-more">Explore Wheat Guide <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="plant-card fade-in" data-delay="0.2s">
+                    <div class="plant-image">
+                        <img 
+            src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400&q=80" 
+            alt="Succulent plant"
+            width="300"
+            height="200"
+            style="display: block; max-width: 100%; height: auto; object-fit: cover;"
+            onerror="this.src='https://via.placeholder.com/300x200?text=Plant+Image+Not+Found'"
+        >
+                    </div>
+                    <div class="plant-content">
+                        <h3>Drought-Resistant Plants</h3>
+                        <p>Guide to succulents and other plants that thrive in arid conditions with minimal water requirements.</p>
+                        <div class="plant-meta">
+                            <span><i class="fas fa-tree"></i> Perennial</span>
+                            <span><i class="fas fa-tint"></i> Low Water</span>
+                        </div>
+                        <a href="#" class="read-more">Explore Drought Plants <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>What FarmeRs Are Saying</h2>
+                <p>Trusted by agricultural professionals worldwide</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-in">
+                    <div class="testimonial-content">
+                        <p>AgriSmart helped me identify a fungal infection in my wheat crop weeks before visible symptoms appeared. The early detection saved me thousands in potential losses.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John PeteRson">
+                        </div>
+                        <div class="author-info">
+                            <h4>John PeteRson</h4>
+                            <p>Wheat Farmer, Kansas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in" data-delay="0.1s">
+                    <div class="testimonial-content">
+                        <p>As an organic farmer, I rely on AgriScan to monitor plant health without chemical tests. The nutrient analysis feature is incredibly accurate and has improved our yields by 22%.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Maria Gonzalez">
+                        </div>
+                        <div class="author-info">
+                            <h4>Maria Gonzalez</h4>
+                            <p>Organic Farm Owner, California</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in" data-delay="0.2s">
+                    <div class="testimonial-content">
+                        <p>The plant identification feature has been invaluable for our research station. We've cataloged hundreds of native species with AgriScan's help, saving months of manual work.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Dr. Robert Chen">
+                        </div>
+                        <div class="author-info">
+                            <h4>Dr. Robert Chen</h4>
+                            <p>Botanical Researcher, Singapore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Ready to Transform Your Farming Practice?</h2>
+                <p>Join thousands of agricultural professionals who are using AgriScan to improve crop health, increase yields, and reduce losses.</p>
+                <div class="cta-buttons">
+                    <a href="/enternew" class="button button-primary">Start Free Trial</a>
+                    <a href="/userlogin" class="button button-outline">Login to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo"><i class="fas fa-seedling logo-icon"></i><span>AgriSmart</span></div>
+                    <p>Empowering the future of agriculture through artificial intelligence and computer vision technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h3>Solutions</h3>
+                        <ul>
+                            <li><a href="#">Crop Monitoring</a></li>
+                            <li><a href="#">Disease Detection</a></li>
+                            <li><a href="#">Precision Agriculture</a></li>
+                            <li><a href="#">Farm Management</a></li>
+                            <li><a href="#">Research Tools</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Plant Database</a></li>
+                            <li><a href="#">Disease Library</a></li>
+                            <li><a href="#">Growing Guides</a></li>
+                            <li><a href="#">Research PapeRs</a></li>
+                            <li><a href="#">API Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Company</h3>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">CareeRs</a></li>
+                            <li><a href="#">Press</a></li>
+                            <li><a href="#">PartneRs</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-links-column">
+                        <h3>Legal</h3>
+                        <ul>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Security</a></li>
+                            <li><a href="#">Cookie Policy</a></li>
+                            <li><a href="#">GDPR</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AgriSmart Technologies. All rights reserved.</p>
+                <p class="disclaimer">AgriScan provides agricultural information and suggestions. For professional agronomic advice, please consult a certified expert.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const menuIcon = document.getElementById('menuIcon');
+            const navMenu = document.getElementById('navMenu');
+            const navActions = document.getElementById('navActions');
+            
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                navActions.classList.toggle('active');
+                menuIcon.classList.toggle('fa-baRs');
+                menuIcon.classList.toggle('fa-times');
+            });
+            
+            // Scroll effect for navbar
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            navActions.classList.remove('active');
+                            menuIcon.classList.remove('fa-times');
+                            menuIcon.classList.add('fa-baRs');
+                        }
+                    }
+                });
+            });
+            
+            // Animate elements when they come into view
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const observer = new InteRsectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isInteRsecting) {
+                        entry.target.style.animation = `fadeIn 0.8s ease forwards Rs{entry.target.dataset.delay || '0s'}`;
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                element.dataset.delay = `Rs{index * 0.1}s`;
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>

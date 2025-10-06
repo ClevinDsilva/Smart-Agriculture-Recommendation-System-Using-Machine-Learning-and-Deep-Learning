@@ -1,0 +1,2977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 Crop & Plant Health Information</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+   /* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #1a4a1a;
+    background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #2d7a2d 0%, #4a9a4a 100%);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 10px 30px -10px rgba(45, 122, 45, 0.3);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.header-title h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.leaf-icon {
+    width: 2rem;
+    height: 2rem;
+    color: #b8d4b8;
+}
+
+.header-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Navigation Styles */
+.navigation {
+    background: #f0f8f0;
+    padding: 1rem 0;
+    border-bottom: 1px solid #d4e8d4;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #d4a851 0%, #f4c467 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.btn-outline {
+    background: white;
+    color: #2d7a2d;
+    border: 1px solid #c8e6c8;
+}
+
+.btn-outline.active {
+    background: linear-gradient(135deg, #2d7a2d 0%, #4a9a4a 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(45, 122, 45, 0.3);
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Container and Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1a4a1a;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Grid Layouts */
+.crops-grid, .diseases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Card Styles */
+.card {
+    background: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px -10px rgba(45, 122, 45, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -10px rgba(45, 122, 45, 0.3);
+}
+
+.card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.1);
+}
+
+.crop-badge, .disease-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: #2d7a2d;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.disease-badge {
+    background: #dc2626;
+}
+
+.card-content {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1a4a1a;
+    margin-bottom: 0.5rem;
+}
+
+.card:hover .card-title {
+    color: #2d7a2d;
+}
+
+.card-description {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.card-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    background: #f9fafb;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.info-item .icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #2d7a2d;
+}
+
+.price {
+    font-weight: bold;
+    color: #2d7a2d;
+    font-size: 1rem;
+}
+
+.growth-period {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+/* Disease Card Specific Styles */
+.disease-card {
+    cursor: default;
+}
+
+.disease-card:hover {
+    transform: translateY(-4px);
+}
+
+.solution-box {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.solution-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 0.5rem;
+}
+
+.solution-text {
+    font-size: 0.875rem;
+    color: #1e40af;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-title h1 {
+        font-size: 1.8rem;
+    }
+    
+    .header-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+    }
+    
+    .crops-grid, .diseases-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .container {
+        padding: 1rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Detail Page Styles */
+.detail-page {
+    display: none;
+    min-height: 100vh;
+    background: #f8fffe;
+}
+
+.detail-page.active {
+    display: block;
+}
+
+.detail-header {
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.detail-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2));
+}
+
+.detail-content {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: white;
+}
+
+.detail-badge {
+    background: #2d7a2d;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.detail-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.detail-description {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+.back-button {
+    margin-bottom: 2rem;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.detail-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px -10px rgba(45, 122, 45, 0.2);
+    margin-bottom: 2rem;
+}
+
+.detail-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1a4a1a;
+    margin-bottom: 1.5rem;
+}
+
+.detail-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.info-group .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #2d7a2d;
+    margin-top: 0.125rem;
+}
+
+.info-text h4 {
+    font-weight: 600;
+    color: #1a4a1a;
+    margin-bottom: 0.25rem;
+}
+
+.info-text p {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tag {
+    background: #f0f8f0;
+    color: #2d7a2d;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.sidebar .detail-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.nutrition-item, .disease-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.disease-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.disease-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #dc2626;
+    border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .detail-title {
+        font-size: 2rem;
+    }
+    
+    .detail-content {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+    
+    .detail-info {
+        grid-template-columns: 1fr;
+    }
+}
+ /* Chatbot button style */
+.btn-chatbot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #f1faf1; /* Green color */
+  color: rgb(57, 55, 55);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-chatbot:hover {
+  background-color: #d5ded5; /* Darker green on hover */
+}
+
+.btn-chatbot .icon {
+  width: 20px;
+  height: 20px;
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-title">
+      <svg class="leaf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L8 7h8l-4-5zM12 7v15M8 12h8"/>
+      </svg>
+      <h1>Crop & Plant Health Information</h1>
+      <svg class="leaf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L8 7h8l-4-5zM12 7v15M8 12h8"/>
+      </svg>
+    </div>
+    
+    <p class="header-subtitle">
+      Your comprehensive guide to healthy crops and effective disease management
+    </p>
+
+    <div class="header-buttons" style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+
+         <!-- Check Yours Button -->
+  <form action="{{ url_for('launch_streamlit') }}" method="POST" target="_blank">
+    <button class="btn btn-agricultural" type="submit">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22,4 12,14.01 9,11.01"/>
+      </svg>
+      Check Your Crop Details and Plant Disease
+    </button>
+  </form>
+
+   <!-- Chatbot Button -->
+    <a href="{{ url_for('chatbot') }}" class="btn btn-chatbot">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <path d="M8 10h.01"/>
+        <path d="M12 10h.01"/>
+        <path d="M16 10h.01"/>
+      </svg>
+      Ask Agriculture Assistant
+    </a>
+  
+  <!-- Logout Button -->
+  <form action="{{ url_for('logout') }}" method="get">
+    <button class="btn btn-earth" type="submit">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16,17 21,12 16,7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+  </form>
+
+  <!-- Google Translate Button -->
+<div id="google_translate_element" style="position: absolute; top: 20px; right: 20px;"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'kn',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" 
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+</div>
+  </header>
+
+  
+  <!-- Navigation -->
+  <nav class="navigation">
+    <button class="btn btn-outline active" id="crops-nav" onclick="showSection('crops')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2L8 7h8l-4-5zM12 7v15M8 12h8"/>
+      </svg>
+      Crops
+    </button>
+    
+    <button class="btn btn-outline" id="diseases-nav" onclick="showSection('diseases')">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 6h10M6 12h12M4 18h16"/>
+      </svg>
+      Plant Diseases
+    </button>
+  </nav>
+
+   <!-- Main Content -->
+    <main class="container">
+        <!-- Crops Section -->
+        <div id="crops-section" class="section active">
+            <h2 class="section-title">Featured Crops</h2>
+            <div class="crops-grid" id="crops-grid">
+                <!-- Crop cards will be dynamically generated -->
+            </div>
+        </div>
+        
+
+    <!-- Diseases Section -->
+    <div id="diseases-section" class="section">
+      <h2 class="section-title">Plant Diseases & Solutions</h2>
+      <div class="crops-grid" id="crops-grid">
+        <!-- Early Blight Card -->
+        <div class="card disease-card">
+          <div class="card-image">
+            <img src="{{ url_for('static', filename='img/Early_Blight.jpeg') }}" alt="Early Blight">
+            <div class="disease-badge">Disease</div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Early Blight</h3>
+            <p class="card-description">A fungal disease causing brown spots with concentric rings on leaves, affecting plant health and yield.</p>
+            <div class="solution-box">
+              <h4 class="solution-title">💡 Solution:</h4>
+              <p class="solution-text">Remove infected leaves, apply copper-based fungicide, ensure proper spacing for air circulation, and use resistant varieties.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Powdery Mildew Card -->
+        <div class="card disease-card">
+          <div class="card-image">
+            <img src="{{ url_for('static', filename='img/powdery_Mildew.webp') }}" alt="Powdery Mildew">
+            <div class="disease-badge">Disease</div>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title">Powdery Mildew</h3>
+            <p class="card-description">Appears as white, powdery coating on leaves, stems, and flowers, reducing photosynthesis.</p>
+            <div class="solution-box">
+              <h4 class="solution-title">💡 Solution:</h4>
+              <p class="solution-text">Apply neem oil or sulfur spray, improve air circulation, avoid overhead watering, and remove affected plant parts.</p>
+            </div>
+          </div>
+        </div>
+
+      <!-- Plant Disease Cards (Extended) -->
+
+<!-- Leaf Spot -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/leaf_spot.jpeg') }}" alt="Leaf Spot">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Leaf Spot</h3>
+    <p class="card-description">Spots on leaves caused by bacteria or fungi, leading to premature leaf drop and reduced growth.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Remove affected leaves, use fungicides, avoid overhead watering, and rotate crops.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Root Rot -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/root.jpeg') }}" alt="Root Rot">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Root Rot</h3>
+    <p class="card-description">Caused by overwatering or poorly drained soil, roots decay and plants wilt or die.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Improve soil drainage, reduce watering, and use fungicides like mefenoxam or phosphonates.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Downy Mildew -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/downy.jpeg') }}" alt="Downy Mildew">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Downy Mildew</h3>
+    <p class="card-description">Causes yellow or white patches on upper leaf surfaces, leading to stunted growth.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Use resistant varieties, apply fungicides, and ensure proper air flow around plants.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Rust -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/Rust.jpg') }}" alt="Rust">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Rust</h3>
+    <p class="card-description">Fungal infection showing orange, red, or brown pustules on leaves and stems.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Remove and destroy infected parts, use sulfur or copper-based fungicides, rotate crops.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Anthracnose -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/anth.jpeg') }}" alt="Anthracnose">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Anthracnose</h3>
+    <p class="card-description">Dark, sunken lesions on leaves, stems, and fruits caused by fungi.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Use disease-free seeds, apply fungicides, and avoid wet foliage.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Mosaic Virus -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/mosaic.jpeg') }}" alt="Mosaic Virus">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Mosaic Virus</h3>
+    <p class="card-description">Causes mottled green and yellow patterns on leaves, leading to stunted growth.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Remove infected plants, control insect vectors like aphids, and use virus-resistant seeds.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bacterial Wilt -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/Bact.jpeg') }}" alt="Bacterial Wilt">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Bacterial Wilt</h3>
+    <p class="card-description">Bacteria block water flow in plant stems causing sudden wilting and death.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Remove affected plants, sterilize tools, rotate crops, and manage insects like beetles.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Fusarium Wilt -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/fus.jpeg') }}" alt="Fusarium Wilt">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Fusarium Wilt</h3>
+    <p class="card-description">Fungal disease causing yellowing and wilting of leaves, mostly affecting vascular tissue.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Use resistant varieties, solarize soil, rotate crops, and improve drainage.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Damping Off -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/dum.jpeg') }}" alt="Damping Off">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Damping Off</h3>
+    <p class="card-description">Fungal disease affecting seedlings, causing sudden wilting and stem rot near soil line.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Use sterile soil, avoid overwatering, and treat with fungicides during early stages.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Black Spot -->
+<div class="card disease-card">
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/black.jpeg') }}" alt="Black Spot">
+    <div class="disease-badge">Disease</div>
+  </div>
+  <div class="card-content">
+    <h3 class="card-title">Black Spot</h3>
+    <p class="card-description">Common rose disease causing black spots on leaves and leaf drop.</p>
+    <div class="solution-box">
+      <h4 class="solution-title">💡 Solution:</h4>
+      <p class="solution-text">Prune infected areas, improve air circulation, and apply fungicides like chlorothalonil.</p>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+   // Crop data
+const crops = [
+  {
+    id: 'coconut',
+    name: 'Coconut',
+    description: 'Tropical palm whose fruit is used for water, oil, copra, and coir; drought-tolerant once established.',
+    image: "{{ url_for('static', filename='img/coconut1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/coconut2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/coconut1.jpeg') }}",
+    regions: ['Kerala', 'Karnataka', 'Tamil Nadu', 'Andhra Pradesh'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'High (70-90%)',
+      rainfall: '1500-2500mm'
+    },
+    price: { amount: 1800, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam, well-drained',
+      ph: '5.0 to 8.0',
+      drainage: 'Excellent'
+    },
+    season: 'Year-round (staggered)',
+    growthPeriod: '6-7 years to full bearing (partial yield earlier)',
+    yield: '70-100 nuts per palm annually',
+    uses: ['Coconut water', 'Oil', 'Copra', 'Coir', 'Desiccated coconut'],
+    nutritionalValue: {
+      carbohydrates: '15g per 100g (dry)',
+      protein: '3.3g per 100g',
+      fiber: '9g per 100g',
+      vitamins: ['Vitamin E', 'B vitamins', 'Minerals']
+    },
+    cultivation: {
+      sowing: 'Year-round (well-spaced planting)',
+      irrigation: 'Regular, especially in establishment',
+      fertilization: 'NPK with zinc and magnesium based on soil test',
+      harvesting: 'Every 45-60 days depending on purpose'
+    },
+    commonDiseases: ['Lethal yellowing', 'Bud rot', 'Rod rot', 'Leaf rot']
+  },
+  {
+    id: 'mango',
+    name: 'Mango',
+    description: 'Tropical fruit tree producing juicy, sweet fruits; flagship horticultural crop in India.',
+    image: "{{ url_for('static', filename='img/mango1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/mango2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/mango1.jpeg') }}",
+    regions: ['Maharashtra', 'Uttar Pradesh', 'Karnataka', 'Andhra Pradesh'],
+    weather: {
+      temperature: '24°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '750-1000mm (well-distributed, avoid waterlogging during flowering)'
+    },
+    price: { amount: 5000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Deep, well-drained loamy to red soil',
+      ph: '5.5 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Summer (April-June)',
+    growthPeriod: '3-5 years to fruiting, perennial',
+    yield: '8-12 tonnes per hectare (varies by variety)',
+    uses: ['Fresh fruit', 'Pickles', 'Juices', 'Aamras', 'Drying'],
+    nutritionalValue: {
+      carbohydrates: '15g per 100g',
+      protein: '0.8g per 100g',
+      fiber: '1.6g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin A', 'Folate']
+    },
+    cultivation: {
+      sowing: 'February-March (grafting/transplanting)',
+      irrigation: 'Moderate; increased during fruit set',
+      fertilization: 'Balanced NPK with micronutrients',
+      harvesting: 'When fruit attains maturity (color/size)'
+    },
+    commonDiseases: ['Powdery mildew', 'Anthracnose', 'Dieback', 'Bacterial black spot']
+  },
+  {
+    id: 'grapes',
+    name: 'Grapes',
+    description: 'Climbing vine grown for table, raisin, and wine grapes; requires careful canopy and water management.',
+    image: "{{ url_for('static', filename='img/grape1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/grape2.jpg') }}",
+    detailImage: "{{ url_for('static', filename='img/grape1.jpeg') }}",
+    regions: ['Maharashtra', 'Karnataka', 'Andhra Pradesh', 'Telangana'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Low to moderate',
+      rainfall: '400-700mm (excess causes disease)'
+    },
+    price: { amount: 8000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained sandy loam to red soil',
+      ph: '6.0 to 7.5',
+      drainage: 'Excellent'
+    },
+    season: 'Rabi (winter harvest) in many areas',
+    growthPeriod: '2-3 years to full production, perennial',
+    yield: '10-15 tonnes per hectare',
+    uses: ['Table fruit', 'Raisins', 'Juice', 'Wine'],
+    nutritionalValue: {
+      carbohydrates: '18g per 100g',
+      protein: '0.7g per 100g',
+      fiber: '0.9g per 100g',
+      vitamins: ['Vitamin C', 'K', 'Antioxidants']
+    },
+    cultivation: {
+      sowing: 'Cuttings/transplanting in cooler months',
+      irrigation: 'Drip irrigation, regulated deficit',
+      fertilization: 'Moderate NPK with boron and zinc',
+      harvesting: 'At full sugar maturity'
+    },
+    commonDiseases: ['Powdery mildew', 'Downy mildew', 'Anthracnose', 'Botrytis bunch rot']
+  },
+  {
+    id: 'cashew',
+    name: 'Cashew',
+    description: 'Tree crop producing nuts and apple; valued for nut kernel and fruit juice.',
+    image: "{{ url_for('static', filename='img/cashew1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/cashew2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/cashew1.jpeg') }}",
+    regions: ['Goa', 'Kerala', 'Karnataka', 'Odisha'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'Moderate to high',
+      rainfall: '1000-2000mm (well-distributed)'
+    },
+    price: { amount: 12000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam to red laterite',
+      ph: '5.0 to 6.5',
+      drainage: 'Excellent'
+    },
+    season: 'Summer crop (flowering in Feb-April)',
+    growthPeriod: '3-4 years to bearing, perennial',
+    yield: '1-2 tonnes of raw nuts per hectare',
+    uses: ['Nut kernel', 'Cashew apple', 'Oil', 'Confectionery'],
+    nutritionalValue: {
+      carbohydrates: '30g per 100g',
+      protein: '18g per 100g',
+      fiber: '3.3g per 100g',
+      vitamins: ['Vitamin E', 'B vitamins', 'Magnesium']
+    },
+    cultivation: {
+      sowing: 'June-July (planting seedlings)',
+      irrigation: 'Supplementary in dry spells',
+      fertilization: 'Organic + NPK based on soil test',
+      harvesting: 'February-May (when apples drop)'
+    },
+    commonDiseases: ['Dieback', 'Leaf spot', 'Powdery mildew', 'Anthracnose']
+  },
+  {
+    id: 'papaya',
+    name: 'Papaya',
+    description: 'Fast-growing tropical fruit rich in papain and vitamins; can be grown year-round in warm climates.',
+    image: "{{ url_for('static', filename='img/papaya1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/papaya2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/papaya1.jpeg') }}",
+    regions: ['Kerala', 'Andhra Pradesh', 'Karnataka', 'Tamil Nadu'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate to high',
+      rainfall: '1000-1500mm'
+    },
+    price: { amount: 2500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Deep, well-drained loamy soil',
+      ph: '6.0 to 7.0',
+      drainage: 'Good'
+    },
+    season: 'Year-round',
+    growthPeriod: '6-9 months to first harvest',
+    yield: '40-60 tonnes per hectare',
+    uses: ['Fresh fruit', 'Papain extraction', 'Juice'],
+    nutritionalValue: {
+      carbohydrates: '11g per 100g',
+      protein: '0.5g per 100g',
+      fiber: '1.7g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin A', 'Folate']
+    },
+    cultivation: {
+      sowing: 'Nursery then transplanting',
+      irrigation: 'Regular, avoid waterlogging',
+      fertilization: 'Balanced NPK + micronutrients',
+      harvesting: 'When skin changes color'
+    },
+    commonDiseases: ['Powdery mildew', 'Anthracnose', 'Ring spot virus', 'Phytophthora root rot']
+  },
+  {
+    id: 'sapota',
+    name: 'Sapota',
+    description: 'Sweet tropical fruit with soft flesh; good source of energy and dietary fiber.',
+    image: "{{ url_for('static', filename='img/sapota1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/sapota2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/sapota1.jpeg') }}",
+    regions: ['Maharashtra', 'Karnataka', 'Tamil Nadu', 'Andhra Pradesh'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'Moderate',
+      rainfall: '750-1500mm'
+    },
+    price: { amount: 4000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy soil',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Year-round (flushes)',
+    growthPeriod: '3-4 years to bearing, perennial',
+    yield: '15-20 tonnes per hectare',
+    uses: ['Fresh fruit', 'Juice', 'Ice creams'],
+    nutritionalValue: {
+      carbohydrates: '17g per 100g',
+      protein: '0.4g per 100g',
+      fiber: '1.1g per 100g',
+      vitamins: ['Vitamin A', 'Vitamin C', 'B vitamins']
+    },
+    cultivation: {
+      sowing: 'February-March (grafted plants)',
+      irrigation: 'Moderate',
+      fertilization: 'Organic + NPK',
+      harvesting: 'When fruit is soft and brownish'
+    },
+    commonDiseases: ['Anthracnose', 'Leaf spot', 'Stem borer', 'Cercospora leaf spot']
+  },
+  {
+    id: 'ragi',
+    name: 'Ragi',
+    description: 'Finger millet; highly nutritious millet tolerant to drought, rich in calcium and fiber.',
+    image: "{{ url_for('static', filename='img/ragi1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/ragi2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/ragi1.jpeg') }}",
+    regions: ['Karnataka', 'Telangana', 'Madhya Pradesh', 'Tamil Nadu'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Low to moderate',
+      rainfall: '350-500mm (rainfed)'
+    },
+    price: { amount: 3000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Red loamy to shallow soil',
+      ph: '5.5 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '90-120 days',
+    yield: '10-15 quintals per hectare',
+    uses: ['Flour', 'Porridge', 'Health foods'],
+    nutritionalValue: {
+      carbohydrates: '72g per 100g',
+      protein: '7.3g per 100g',
+      fiber: '3.6g per 100g',
+      vitamins: ['B complex', 'Calcium', 'Iron']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Minimal (mostly rainfed)',
+      fertilization: 'Low N, P based on soil',
+      harvesting: 'September-October'
+    },
+    commonDiseases: ['Blast', 'Finger streak', 'Downy mildew', 'Neck blast']
+  },
+  {
+    id: 'tobacco',
+    name: 'Tobacco',
+    description: 'Leaf crop grown for curing; used in smokeless and smoking products (economic but has health concerns).',
+    image: "{{ url_for('static', filename='img/tobacco1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/tobacco2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/tobacco1.jpeg') }}",
+    regions: ['Andhra Pradesh', 'Gujarat', 'Karnataka', 'Tamil Nadu'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '600-1000mm'
+    },
+    price: { amount: 15000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Light-textured sandy loam',
+      ph: '5.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif/Rabi (varies by type)',
+    growthPeriod: '100-120 days',
+    yield: '800-1000 kg cured leaf per hectare',
+    uses: ['Cigarettes', 'Chewing tobacco', 'Export'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: []
+    },
+    cultivation: {
+      sowing: 'Nursery raised then transplanting',
+      irrigation: 'Frequent during early growth',
+      fertilization: 'High N with balanced P,K',
+      harvesting: 'Stalk-by-stalk curing'
+    },
+    commonDiseases: ['Tobacco mosaic virus', 'Blue mold', 'Black shank', 'Root-knot nematode']
+  },
+  {
+    id: 'rubber',
+    name: 'Rubber',
+    description: 'Perennial tree tapped for latex; requires humid tropics and well-drained deep soils.',
+    image: "{{ url_for('static', filename='img/rubber1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/rubber2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/rubber1.jpeg') }}",
+    regions: ['Kerala', 'Tamil Nadu', 'Karnataka', 'Goa'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'High',
+      rainfall: '2000-3000mm annually'
+    },
+    price: { amount: 140, unit: 'kg', currency: '₹' },
+    soil: {
+      type: 'Deep, well-drained loamy soil',
+      ph: '4.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Year-round (tapping after maturity)',
+    growthPeriod: '6-7 years to tapping, perennial',
+    yield: '1,200-1,500 kg latex per hectare annually',
+    uses: ['Latex/rubber', 'Industrial products'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: []
+    },
+    cultivation: {
+      sowing: 'Grafted seedlings planted in rainy season',
+      irrigation: 'Supplementary in dry spells',
+      fertilization: 'Regular NPK with micronutrients',
+      harvesting: 'Tapping once tree matures'
+    },
+    commonDiseases: ['Leaf fall disease', 'Root rot', 'Pink disease', 'Brown root disease']
+  },
+  {
+    id: 'amla',
+    name: 'Amla',
+    description: 'Indian gooseberry; high-vitamin C fruit with medicinal and nutritional uses.',
+    image: "{{ url_for('static', filename='img/amla1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/amla2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/amla1.jpeg') }}",
+    regions: ['Madhya Pradesh', 'Rajasthan', 'Uttar Pradesh', 'Gujarat'],
+    weather: {
+      temperature: '15°C to 35°C',
+      humidity: 'Low to moderate',
+      rainfall: '500-1000mm'
+    },
+    price: { amount: 6000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy to sandy soil',
+      ph: '6.5 to 8.0',
+      drainage: 'Good'
+    },
+    season: 'Winter (harvest Nov-Feb)',
+    growthPeriod: '3-4 years to bearing, perennial',
+    yield: '10-15 tonnes per hectare',
+    uses: ['Ayurvedic medicine', 'Pickles', 'Juice', 'Supplements'],
+    nutritionalValue: {
+      carbohydrates: '9g per 100g',
+      protein: '1g per 100g',
+      fiber: '4.3g per 100g',
+      vitamins: ['Vitamin C (very high)', 'Antioxidants']
+    },
+    cultivation: {
+      sowing: 'November-December (planting saplings)',
+      irrigation: 'Light once established',
+      fertilization: 'Organic + balanced NPK',
+      harvesting: 'When fruits are firm and greenish'
+    },
+    commonDiseases: ['Powdery mildew', 'Fruit rot', 'Leaf spot', 'Stem borer']
+  },
+  {
+    id: 'ashwagandha',
+    name: 'Ashwagandha',
+    description: 'Medicinal herb (Withania somnifera) used in Ayurvedic formulations; drought tolerant.',
+    image: "{{ url_for('static', filename='img/ashwa1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/ashwa2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/ashwa1.jpeg') }}",
+    regions: ['Rajasthan', 'Madhya Pradesh', 'Uttar Pradesh', 'Gujarat'],
+    weather: {
+      temperature: '20°C to 35°C',
+      humidity: 'Low to moderate',
+      rainfall: '300-500mm (well-drained)'
+    },
+    price: { amount: 9000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam',
+      ph: '7.5 to 8.0 (slightly alkaline)',
+      drainage: 'Excellent'
+    },
+    season: 'Kharif (sown June-July)',
+    growthPeriod: '150-180 days',
+    yield: '8-12 quintals of roots per hectare',
+    uses: ['Herbal supplements', 'Ayurvedic medicine'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: []
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Light, avoid waterlogging',
+      fertilization: 'Minimal; organic matter helps',
+      harvesting: 'Autumn (when berries mature)'
+    },
+    commonDiseases: ['Leaf spot', 'Root rot', 'Powdery mildew']
+  },
+  {
+    id: 'lemon',
+    name: 'Lemon',
+    description: 'Citrus fruit rich in vitamin C; used in culinary, medicinal, and industrial applications.',
+    image: "{{ url_for('static', filename='img/lemon1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/lemon2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/lemon1.jpeg') }}",
+    regions: ['Maharashtra', 'Gujarat', 'Rajasthan', 'Karnataka'],
+    weather: {
+      temperature: '20°C to 35°C',
+      humidity: 'Moderate',
+      rainfall: '500-1000mm'
+    },
+    price: { amount: 4000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained sandy loam',
+      ph: '5.5 to 7.0',
+      drainage: 'Good'
+    },
+    season: 'Year-round with peak flushes',
+    growthPeriod: '2-3 years to bearing, perennial',
+    yield: '15-20 tonnes per hectare',
+    uses: ['Juice', 'Flavoring', 'Cleaning agent', 'Preserves'],
+    nutritionalValue: {
+      carbohydrates: '9g per 100g',
+      protein: '1.1g per 100g',
+      fiber: '2.8g per 100g',
+      vitamins: ['Vitamin C', 'B6', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'Grafting/transplanting in winter',
+      irrigation: 'Regular, more in summer',
+      fertilization: 'NPK with micronutrients (Zn, Fe)',
+      harvesting: 'When fruit color and size mature'
+    },
+    commonDiseases: ['Citrus canker', 'Greening (Huanglongbing)', 'Phytophthora root rot', 'Mites']
+  },
+  {
+    id: 'pineapple',
+    name: 'Pineapple',
+    description: 'Tropical fruit with sweet-tart flavor; propagated via slips or crowns.',
+    image: "{{ url_for('static', filename='img/pineapple1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/pineapple2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/pineapple1.jpeg') }}",
+    regions: ['Assam', 'Kerala', 'Karnataka', 'West Bengal'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate to high',
+      rainfall: '1000-1500mm (well-drained)'
+    },
+    price: { amount: 5500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam with good drainage',
+      ph: '4.5 to 6.5',
+      drainage: 'Excellent'
+    },
+    season: 'Year-round (staggered planting)',
+    growthPeriod: '18-24 months (varies by method)',
+    yield: '25-30 tonnes per hectare',
+    uses: ['Fresh fruit', 'Canning', 'Juice'],
+    nutritionalValue: {
+      carbohydrates: '13g per 100g',
+      protein: '0.5g per 100g',
+      fiber: '1.4g per 100g',
+      vitamins: ['Vitamin C', 'Manganese', 'B vitamins']
+    },
+    cultivation: {
+      sowing: 'Crowns/slips planting',
+      irrigation: 'Moderate, avoid waterlogging',
+      fertilization: 'Balanced NPK + magnesium',
+      harvesting: 'When crown separates slightly and fruit smells sweet'
+    },
+    commonDiseases: ['Heart rot', 'Mealy bug', 'Phytophthora root rot', 'Yellow Spot Virus']
+  },
+  {
+    id: 'cocoa',
+    name: 'Cocoa',
+    description: 'Shade-loving perennial grown for beans used in chocolate; needs humid tropical climate.',
+    image: "{{ url_for('static', filename='img/cocoa1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/cocoa2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/cocoa1.jpeg') }}",
+    regions: ['Andaman & Nicobar (limited), experimental in south India'],
+    weather: {
+      temperature: '21°C to 32°C',
+      humidity: 'High (70-90%)',
+      rainfall: '1500-2500mm evenly distributed'
+    },
+    price: { amount: 22000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Deep, fertile loamy soil rich in organic matter',
+      ph: '5.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Perennial',
+    growthPeriod: '3-4 years to first crop, perennial thereafter',
+    yield: '400-800 kg dried beans per hectare',
+    uses: ['Chocolate', 'Cocoa butter', 'Confectionery'],
+    nutritionalValue: {
+      carbohydrates: '50g per 100g (bean nibs)',
+      protein: '10g per 100g',
+      fiber: '30g per 100g',
+      vitamins: ['Magnesium', 'Iron', 'Antioxidants']
+    },
+    cultivation: {
+      sowing: 'Shade seedlings, transplant under canopy',
+      irrigation: 'Regular moisture',
+      fertilization: 'Organic + balanced nutrients',
+      harvesting: 'Pods picked, fermented and dried'
+    },
+    commonDiseases: ['Black pod disease', 'Witches’ broom', 'Vascular streak dieback']
+  },
+  {
+    id: 'jackfruit',
+    name: 'Jackfruit',
+    description: 'Large tropical fruit tree with multiple uses; unripe fruit used as vegetable, ripe as sweet.',
+    image: "{{ url_for('static', filename='img/jackfruit1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/jackfruit2.webp') }}",
+    detailImage: "{{ url_for('static', filename='img/jackfruit1.jpeg') }}",
+    regions: ['Kerala', 'Karnataka', 'Tamil Nadu', 'West Bengal'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'Moderate to high',
+      rainfall: '1000-2000mm'
+    },
+    price: { amount: 2000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Deep, well-drained loam',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Summer to monsoon',
+    growthPeriod: '3-4 years to bearing, perennial',
+    yield: '10-15 tonnes per tree annually (varies)',
+    uses: ['Fresh fruit', 'Vegetable (unripe)', 'Seeds', 'Processed products'],
+    nutritionalValue: {
+      carbohydrates: '23g per 100g',
+      protein: '1.7g per 100g',
+      fiber: '1.5g per 100g',
+      vitamins: ['Vitamin C', 'B complex']
+    },
+    cultivation: {
+      sowing: 'Grafted/transplanted',
+      irrigation: 'Moderate',
+      fertilization: 'Organic + NPK',
+      harvesting: 'When skin turns yellowish and aroma develops'
+    },
+    commonDiseases: ['Fruit rot', 'Stem rot', 'Leaf spot', 'Dieback']
+  },
+  {
+    id: 'black_pepper',
+    name: 'Black Pepper',
+    description: 'Climbing vine producing peppercorns; “king of spices”, needs shade and humid tropics.',
+    image: "{{ url_for('static', filename='img/black papper1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/black papper1.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/blackpepper2.jpeg') }}",
+    regions: ['Kerala', 'Karnataka', 'Assam', 'Northeast India'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'High (80-90%)',
+      rainfall: '2500-4000mm'
+    },
+    price: { amount: 18000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Rich, well-drained loamy soil with organic matter',
+      ph: '5.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Perennial',
+    growthPeriod: '3 years to full yield, perennial',
+    yield: '800-1200 kg dried pepper per hectare',
+    uses: ['Spice', 'Medicinal', 'Preservative'],
+    nutritionalValue: {
+      carbohydrates: '64g per 100g',
+      protein: '10g per 100g',
+      fiber: '26g per 100g',
+      vitamins: ['Vitamin K', 'Iron', 'Manganese']
+    },
+    cultivation: {
+      sowing: 'Cuttings along support trees',
+      irrigation: 'Regular, maintain humidity',
+      fertilization: 'Organic + NPK supplements',
+      harvesting: 'When berries turn red, then dried'
+    },
+    commonDiseases: ['Foot rot', 'Blight', 'Dieback', 'Phytophthora']
+  },
+  {
+    id: 'gram',
+    name: 'Gram (Chickpea)',
+    description: 'Cool-season legume rich in protein, widely used in Indian dals and snacks.',
+    image: "{{ url_for('static', filename='img/gram1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/gram2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/gram1.jpeg') }}",
+    regions: ['Madhya Pradesh', 'Rajasthan', 'Uttar Pradesh', 'Haryana'],
+    weather: {
+      temperature: '10°C to 25°C',
+      humidity: 'Low',
+      rainfall: '300-500mm (pre-monsoon sowing)'
+    },
+    price: { amount: 5000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy soil',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Rabi',
+    growthPeriod: '90-120 days',
+    yield: '10-15 quintals per hectare',
+    uses: ['Dal', 'Snacks', 'Flour'],
+    nutritionalValue: {
+      carbohydrates: '27g per 100g',
+      protein: '19g per 100g',
+      fiber: '17g per 100g',
+      vitamins: ['Folate', 'Vitamin B6', 'Iron']
+    },
+    cultivation: {
+      sowing: 'October-November',
+      irrigation: 'Minimal (rainfed mainly)',
+      fertilization: 'Phosphorus-rich, low nitrogen',
+      harvesting: 'March-April'
+    },
+    commonDiseases: ['Ascochyta blight', 'Fusarium wilt', 'Dry root rot']
+  },
+  {
+    id: 'jute',
+    name: 'Jute',
+    description: 'Fibre crop used for sacks and eco-friendly textiles; prefers humid alluvial soil.',
+    image: "{{ url_for('static', filename='img/jute1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/jute2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/jute1.jpeg') }}",
+    regions: ['West Bengal', 'Assam', 'Bihar', 'Odisha'],
+    weather: {
+      temperature: '24°C to 35°C',
+      humidity: 'High',
+      rainfall: '1500-2500mm'
+    },
+    price: { amount: 2500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Alluvial, fertile, well-drained',
+      ph: '5.5 to 6.8',
+      drainage: 'Moderate'
+    },
+    season: 'Kharif',
+    growthPeriod: '100-120 days',
+    yield: '2-3 tonnes fibre per hectare',
+    uses: ['Burlap', 'Rope', 'Carpets', 'Eco packaging'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'High (jute fibre)',
+      vitamins: []
+    },
+    cultivation: {
+      sowing: 'May-June',
+      irrigation: 'Rainfed ideally',
+      fertilization: 'Nitrogen and phosphorus',
+      harvesting: 'When stems mature (about 4 months)'
+    },
+    commonDiseases: ['Stem rot', 'Root rot', 'Twig blight']
+  },
+  {
+    id: 'cabbage',
+    name: 'Cabbage',
+    description: 'Leafy vegetable rich in vitamin K and C; cool-season crop used in salads and cooked dishes.',
+    image: "{{ url_for('static', filename='img/cabbage1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/cabbage2.jfif') }}",
+    detailImage: "{{ url_for('static', filename='img/cabbage1.jpeg') }}",
+    regions: ['Maharashtra', 'Karnataka', 'Himachal Pradesh', 'Uttarakhand'],
+    weather: {
+      temperature: '15°C to 22°C',
+      humidity: 'Moderate',
+      rainfall: '600-800mm'
+    },
+    price: { amount: 3500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Fertile loamy soil',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Rabi and winter',
+    growthPeriod: '70-100 days',
+    yield: '200-300 quintals per hectare',
+    uses: ['Salads', 'Cooked dishes', 'Fermentation'],
+    nutritionalValue: {
+      carbohydrates: '6g per 100g',
+      protein: '1.3g per 100g',
+      fiber: '2.5g per 100g',
+      vitamins: ['Vitamin K', 'Vitamin C', 'Folate']
+    },
+    cultivation: {
+      sowing: 'September-October (Rabi)',
+      irrigation: 'Regular, avoid waterlogging',
+      fertilization: 'High nitrogen initially',
+      harvesting: 'When heads firm'
+    },
+    commonDiseases: ['Black rot', 'Downy mildew', 'Cabbage worm', 'Clubroot']
+  },
+  {
+    id: 'carrot',
+    name: 'Carrot',
+    description: 'Root vegetable rich in beta-carotene; grown in cool climates with loose soil.',
+    image: "{{ url_for('static', filename='img/carrot1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/carrot2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/carrot1.jpeg') }}",
+    regions: ['Uttar Pradesh', 'Maharashtra', 'Karnataka', 'Himachal Pradesh'],
+    weather: {
+      temperature: '15°C to 20°C',
+      humidity: 'Moderate',
+      rainfall: '600-800mm'
+    },
+    price: { amount: 4000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Loose sandy loam',
+      ph: '6.0 to 7.0',
+      drainage: 'Good'
+    },
+    season: 'Rabi',
+    growthPeriod: '70-90 days',
+    yield: '250-300 quintals per hectare',
+    uses: ['Raw salads', 'Juices', 'Cooking'],
+    nutritionalValue: {
+      carbohydrates: '10g per 100g',
+      protein: '0.9g per 100g',
+      fiber: '2.8g per 100g',
+      vitamins: ['Vitamin A (beta-carotene)', 'Vitamin K', 'Biotin']
+    },
+    cultivation: {
+      sowing: 'October-November',
+      irrigation: 'Regular but light',
+      fertilization: 'Moderate N and P',
+      harvesting: 'When roots attain size'
+    },
+    commonDiseases: ['Alternaria leaf blight', 'Root knot nematode', 'Cavity spot']
+  },
+  {
+    id: 'orange',
+    name: 'Orange',
+    description: 'Citrus fruit rich in vitamin C; consumed fresh and processed into juice.',
+    image: "{{ url_for('static', filename='img/orange1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/orange2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/orange1.jpeg') }}",
+    regions: ['Maharashtra', 'Nagaland', 'Assam', 'Karnataka'],
+    weather: {
+      temperature: '15°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '800-1200mm'
+    },
+    price: { amount: 5000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained sandy loam',
+      ph: '5.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Winter',
+    growthPeriod: '3-4 years to bearing, perennial',
+    yield: '15-20 tonnes per hectare',
+    uses: ['Fresh fruit', 'Juice', 'Marmalade'],
+    nutritionalValue: {
+      carbohydrates: '12g per 100g',
+      protein: '0.9g per 100g',
+      fiber: '2.4g per 100g',
+      vitamins: ['Vitamin C', 'Folate']
+    },
+    cultivation: {
+      sowing: 'Grafting/transplanting',
+      irrigation: 'Regular',
+      fertilization: 'Balanced NPK with micro',
+      harvesting: 'When color and juice develop'
+    },
+    commonDiseases: ['Citrus canker', 'Greening', 'Scab', 'Mites']
+  },
+  {
+    id: 'tulsi',
+    name: 'Tulsi',
+    description: 'Holy basil; aromatic medicinal herb used in Ayurveda for immunity and respiratory health.',
+    image: "{{ url_for('static', filename='img/tulsi1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/tulsi2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/tulsi1.jpeg') }}",
+    regions: ['All over India (adaptable)'],
+    weather: {
+      temperature: '20°C to 35°C',
+      humidity: 'Moderate',
+      rainfall: '500-1000mm'
+    },
+    price: { amount: 8000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy soil',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Year-round (best in warm)',
+    growthPeriod: '60-90 days for harvest (perennial with pruning)',
+    yield: 'Fresh leaves multiple harvests',
+    uses: ['Medicinal', 'Tea', 'Ritual'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: ['Vitamin A', 'Vitamin C', 'Iron']
+    },
+    cultivation: {
+      sowing: 'Direct or nursery',
+      irrigation: 'Moderate',
+      fertilization: 'Light organic',
+      harvesting: 'Leaf plucking as needed'
+    },
+    commonDiseases: ['Downy mildew', 'Leaf spot', 'Fusarium wilt']
+  },
+  {
+    id: 'aloe_vera',
+    name: 'Aloe Vera',
+    description: 'Succulent medicinal plant used for skin care, digestion, and as a cooling agent.',
+    image: "{{ url_for('static', filename='img/aloevera1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/aloevera2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/aloevera1.jpeg') }}",
+    regions: ['Rajasthan', 'Gujarat', 'Tamil Nadu', 'Karnataka'],
+    weather: {
+      temperature: '20°C to 35°C',
+      humidity: 'Low to moderate',
+      rainfall: '250-500mm (drought tolerant)'
+    },
+    price: { amount: 10000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy, well-drained',
+      ph: '7.0 to 8.5',
+      drainage: 'Excellent'
+    },
+    season: 'Year-round',
+    growthPeriod: '6-8 months for mature leaves',
+    yield: 'Multiple harvests per year (leaf gel)',
+    uses: ['Cosmetics', 'Medicinal gel', 'Juice', 'Skin treatments'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: ['Vitamin A', 'C', 'E', 'B12']
+    },
+    cultivation: {
+      sowing: 'Offsets/leaf cuttings',
+      irrigation: 'Sparse; avoid overwatering',
+      fertilization: 'Minimal organic',
+      harvesting: 'Select mature outer leaves'
+    },
+    commonDiseases: ['Root rot (overwatering)', 'Leaf spots', 'Aloe rust']
+  },
+  {
+    id: 'okra',
+    name: 'Okra',
+    description: 'Warm-season vegetable rich in fiber and vitamins; popular in Indian curries and stir-fries.',
+    image: "{{ url_for('static', filename='img/okra1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/okra2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/okra1.jpeg') }}",
+    regions: ['Andhra Pradesh', 'Karnataka', 'Maharashtra', 'West Bengal'],
+    weather: {
+      temperature: '20°C to 35°C',
+      humidity: 'Moderate (50-70%)',
+      rainfall: '500-800mm annually'
+    },
+    price: { amount: 3200, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained sandy loam',
+      ph: '6.0 to 6.8 (slightly acidic)',
+      drainage: 'Good'
+    },
+    season: 'Kharif & Rabi (depending on region)',
+    growthPeriod: '60-70 days',
+    yield: '100-150 quintals per hectare',
+    uses: ['Curry', 'Fried dishes', 'Pickles'],
+    nutritionalValue: {
+      carbohydrates: '7g per 100g',
+      protein: '2g per 100g',
+      fiber: '3.2g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin K', 'Folate']
+    },
+    cultivation: {
+      sowing: 'June-July (Kharif), September-October (Rabi)',
+      irrigation: 'Regular (5-7 irrigations)',
+      fertilization: '80kg N, 40kg P2O5, 40kg K2O per hectare',
+      harvesting: 'Every 3-4 days once pods appear'
+    },
+    commonDiseases: ['Yellow vein mosaic', 'Powdery mildew', 'Fruit rot', 'Leaf spot']
+  },
+  {
+    id: 'eggplant',
+    name: 'Eggplant',
+    description: 'Also called brinjal; versatile vegetable with high dietary fiber, used in curries and grills.',
+    image: "{{ url_for('static', filename='img/eggplant1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/eggplant2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/eggplant1.jpeg') }}",
+    regions: ['Bihar', 'West Bengal', 'Tamil Nadu', 'Odisha'],
+    weather: {
+      temperature: '22°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '600-900mm annually'
+    },
+    price: { amount: 2800, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy soil',
+      ph: '5.5 to 6.8 (slightly acidic)',
+      drainage: 'Good'
+    },
+    season: 'Kharif & Rabi',
+    growthPeriod: '90-120 days',
+    yield: '120-160 quintals per hectare',
+    uses: ['Curry', 'Fried dishes', 'Roasted preparations'],
+    nutritionalValue: {
+      carbohydrates: '6g per 100g',
+      protein: '1g per 100g',
+      fiber: '3g per 100g',
+      vitamins: ['Vitamin B6', 'Vitamin K', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'August-September (Kharif), November (Rabi)',
+      irrigation: '7-9 irrigations',
+      fertilization: '100kg N, 50kg P2O5, 50kg K2O per hectare',
+      harvesting: 'When fruits are glossy and firm'
+    },
+    commonDiseases: ['Bacterial wilt', 'Verticillium wilt', 'Fruit rot', 'Powdery mildew']
+  },
+  {
+    id: 'chilli',
+    name: 'Chilli',
+    description: 'Spicy fruit crop used as a condiment; rich in capsaicin and vitamin C.',
+    image: "{{ url_for('static', filename='img/chilli1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/chilli2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/chilli1.jpeg') }}",
+    regions: ['Andhra Pradesh', 'Telangana', 'Karnataka', 'Odisha'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: '60-70%',
+      rainfall: '500-1000mm (well-distributed)'
+    },
+    price: { amount: 12000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Rich, well-drained loam',
+      ph: '6.0 to 7.5 (neutral to slightly acidic)',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '90-120 days',
+    yield: '15-25 quintals per hectare (dry chilli)',
+    uses: ['Spice', 'Pickles', 'Powder', 'Sauces'],
+    nutritionalValue: {
+      carbohydrates: '9g per 100g',
+      protein: '2g per 100g',
+      fiber: '2.5g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin A', 'Capsaicin']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Moderate, avoid waterlogging',
+      fertilization: '100kg N, 40kg P2O5, 60kg K2O per hectare',
+      harvesting: 'When pods mature and change color'
+    },
+    commonDiseases: ['Anthracnose', 'Bacterial wilt', 'Powdery mildew', 'Leaf curl virus']
+  },
+  {
+    id: 'pumpkin',
+    name: 'Pumpkin',
+    description: 'Large vine vegetable used in cooking and as animal feed; good source of vitamins and fiber.',
+    image: "{{ url_for('static', filename='img/pumkin.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/pumpkin2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/pumkin.jpeg') }}",
+    regions: ['Uttar Pradesh', 'Madhya Pradesh', 'Rajasthan', 'Gujarat'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '500-800mm'
+    },
+    price: { amount: 2500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained sandy loam',
+      ph: '6.0 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '75-100 days',
+    yield: '20-30 tonnes per hectare',
+    uses: ['Culinary (soups, sweets)', 'Animal feed', 'Seed oil'],
+    nutritionalValue: {
+      carbohydrates: '6.5g per 100g',
+      protein: '1g per 100g',
+      fiber: '0.5g per 100g',
+      vitamins: ['Vitamin A', 'Vitamin C', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'July-August',
+      irrigation: '4-5 irrigations',
+      fertilization: '80kg N, 40kg P2O5, 40kg K2O per hectare',
+      harvesting: 'When rind hardens and color deepens'
+    },
+    commonDiseases: ['Powdery mildew', 'Downy mildew', 'Bacterial wilt', 'Anthracnose']
+  },
+  {
+    id: 'sweet_potato',
+    name: 'Sweet Potato',
+    description: 'Tuber crop high in beta-carotene and fiber; drought-tolerant and nutritious.',
+    image: "{{ url_for('static', filename='img/sweetpatato1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/sweetpatato2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/sweetpatato1.jpeg') }}",
+    regions: ['Andhra Pradesh', 'Karnataka', 'Odisha', 'Bihar'],
+    weather: {
+      temperature: '21°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '500-800mm (well-distributed)'
+    },
+    price: { amount: 3300, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam, loose soil for tuber expansion',
+      ph: '5.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '90-120 days',
+    yield: '20-25 tonnes per hectare',
+    uses: ['Boiled/roasted food', 'Purees', 'Animal feed', 'Starch'],
+    nutritionalValue: {
+      carbohydrates: '20g per 100g',
+      protein: '1.6g per 100g',
+      fiber: '3g per 100g',
+      vitamins: ['Vitamin A (beta-carotene)', 'Vitamin C', 'Manganese']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Light to moderate (avoid waterlogging)',
+      fertilization: '60kg N, 40kg P2O5, 50kg K2O per hectare',
+      harvesting: '3-4 months after planting'
+    },
+    commonDiseases: ['Black rot', 'Root-knot nematode', 'Fusarium wilt', 'Stem rot']
+  },
+  {
+    id: 'banana',
+    name: 'Banana',
+    description: 'Tropical fruit crop, high in potassium and energy, grown year-round in suitable climates.',
+    image: "{{ url_for('static', filename='img/bannana.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/bannana2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/bannana.jpeg') }}",
+    regions: ['Karnataka', 'Andhra Pradesh', 'Tamil Nadu', 'Maharashtra'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'High (70-90%)',
+      rainfall: '1500-2500mm (or irrigation equivalent)'
+    },
+    price: { amount: 1800, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Deep, well-drained fertile loam',
+      ph: '5.5 to 7.0',
+      drainage: 'Good with moisture retention'
+    },
+    season: 'Year-round',
+    growthPeriod: '9-12 months',
+    yield: '30-40 tonnes per hectare',
+    uses: ['Fresh fruit', 'Processed snacks', 'Fiber', 'Animal feed'],
+    nutritionalValue: {
+      carbohydrates: '23g per 100g',
+      protein: '1.1g per 100g',
+      fiber: '2.6g per 100g',
+      vitamins: ['Vitamin B6', 'Vitamin C', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'Staggered throughout year',
+      irrigation: 'Frequent (high water demand)',
+      fertilization: '200kg N, 100kg P2O5, 150kg K2O per hectare',
+      harvesting: '9-12 months after planting'
+    },
+    commonDiseases: ['Panama wilt', 'Sigatoka', 'Bunchy top virus', 'Nematodes']
+  },
+  {
+    id: 'ginger',
+    name: 'Ginger',
+    description: 'Aromatic rhizome used as spice and herbal remedy; requires warm and humid climate.',
+    image: "{{ url_for('static', filename='img/ginger1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/ginger2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/ginger1.jpeg') }}",
+    regions: ['Kerala', 'Karnataka', 'North East India', 'Maharashtra'],
+    weather: {
+      temperature: '22°C to 30°C',
+      humidity: 'High (70-90%)',
+      rainfall: '1500-2500mm'
+    },
+    price: { amount: 7000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Loamy, rich in organic matter',
+      ph: '5.5 to 6.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '8-10 months',
+    yield: '15-20 quintals per hectare',
+    uses: ['Spice', 'Medicinal', 'Oil extraction'],
+    nutritionalValue: {
+      carbohydrates: '18g per 100g',
+      protein: '2g per 100g',
+      fiber: '2g per 100g',
+      vitamins: ['Vitamin C', 'Magnesium', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Frequent early, then moderate',
+      fertilization: '150kg N, 60kg P2O5, 60kg K2O + organic',
+      harvesting: 'February-April'
+    },
+    commonDiseases: ['Soft rot', 'Rhizome rot', 'Leaf spot', 'Bacterial wilt']
+  },
+  {
+    id: 'pearl_millet',
+    name: 'Pearl Millet',
+    description: 'Drought-tolerant millet staple in arid zones; rich in fiber and minerals.',
+    image: "{{ url_for('static', filename='img/pearlmilwt1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/peralmelit2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/pearlmilwt1.jpeg') }}",
+    regions: ['Rajasthan', 'Gujarat', 'Haryana', 'Maharashtra'],
+    weather: {
+      temperature: '25°C to 35°C',
+      humidity: 'Low to moderate',
+      rainfall: '250-500mm'
+    },
+    price: { amount: 2200, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Sandy loam to loamy soil',
+      ph: '6.0 to 8.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '60-75 days',
+    yield: '15-20 quintals per hectare',
+    uses: ['Roti', 'Porridge', 'Animal feed'],
+    nutritionalValue: {
+      carbohydrates: '67g per 100g',
+      protein: '11g per 100g',
+      fiber: '9g per 100g',
+      vitamins: ['Niacin', 'Folate', 'Iron']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Usually rainfed; minimal supplemental',
+      fertilization: '40kg N, 20kg P2O5 per hectare',
+      harvesting: 'August-September'
+    },
+    commonDiseases: ['Downy mildew', 'Blast', 'Ergot', 'Smut']
+  },
+  {
+    id: 'groundnut',
+    name: 'Groundnut',
+    description: 'Legume and oilseed; source of edible oil and protein-rich meal.',
+    image: "{{ url_for('static', filename='img/groundnut1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/groundnut2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/groundnut1.jpeg') }}",
+    regions: ['Gujarat', 'Andhra Pradesh', 'Tamil Nadu', 'Karnataka'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '500-1000mm'
+    },
+    price: { amount: 4500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Light-textured sandy loam',
+      ph: '5.5 to 7.0',
+      drainage: 'Good'
+    },
+    season: 'Kharif',
+    growthPeriod: '110-130 days',
+    yield: '20-25 quintals per hectare',
+    uses: ['Oil', 'Snacks', 'Feed'],
+    nutritionalValue: {
+      carbohydrates: '16g per 100g',
+      protein: '25g per 100g',
+      fiber: '8.5g per 100g',
+      vitamins: ['Vitamin E', 'Niacin', 'Folate']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: '2-3 if rainfall low',
+      fertilization: '40kg N, 80kg P2O5, 40kg K2O per hectare',
+      harvesting: 'October-November'
+    },
+    commonDiseases: ['Aflatoxin (Aspergillus)', 'Leaf spot', 'Rust', 'Bud necrosis']
+  },
+  {
+    id: 'tomato',
+    name: 'Tomato',
+    description: 'Widely used vegetable high in vitamin C; base for many sauces and gravies.',
+    image: "{{ url_for('static', filename='img/tomato.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/tomato2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/tomato.jpeg') }}",
+    regions: ['Maharashtra', 'Karnataka', 'Andhra Pradesh', 'West Bengal'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'Moderate',
+      rainfall: '600-900mm'
+    },
+    price: { amount: 3000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Loamy fertile soil',
+      ph: '6.0 to 7.0',
+      drainage: 'Good'
+    },
+    season: 'Kharif & Rabi',
+    growthPeriod: '60-90 days',
+    yield: '150-200 quintals per hectare',
+    uses: ['Sauces', 'Curries', 'Salads'],
+    nutritionalValue: {
+      carbohydrates: '3.9g per 100g',
+      protein: '0.9g per 100g',
+      fiber: '1.2g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin K', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'June-July (Kharif), September (Rabi)',
+      irrigation: 'Regular',
+      fertilization: '100kg N, 50kg P2O5, 50kg K2O per hectare',
+      harvesting: '2-3 months after transplanting'
+    },
+    commonDiseases: ['Early blight', 'Bacterial wilt', 'Tomato mosaic virus', 'Powdery mildew']
+  },
+    {
+        id: 'wheat',
+        name: 'Wheat',
+        description: 'Wheat is a staple crop known for its high carbohydrate content and is used in bread, pasta, and more.',
+        image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop',
+        heroImage: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200&h=400&fit=crop',
+        detailImage: "{{ url_for('static', filename='img/Wheat Field.jpg') }}",
+        regions: ['Punjab', 'Haryana', 'Uttar Pradesh', 'Madhya Pradesh'],
+        weather: {
+            temperature: '10°C to 25°C',
+            humidity: 'Low to moderate (50-70%)',
+            rainfall: '450-650mm annually'
+        },
+        price: { amount: 2200, unit: 'quintal', currency: '₹' },
+        soil: {
+            type: 'Well-drained loamy soil',
+            ph: '6.0 to 7.5 (neutral)',
+            drainage: 'Good drainage required'
+        },
+        season: 'Rabi (Winter crop)',
+        growthPeriod: '120-150 days',
+        yield: '25-30 quintals per hectare',
+        uses: ['Flour production', 'Bread making', 'Pasta', 'Biscuits', 'Animal feed'],
+        nutritionalValue: {
+            carbohydrates: '71g per 100g',
+            protein: '13g per 100g',
+            fiber: '11g per 100g',
+            vitamins: ['Vitamin B1', 'Vitamin B3', 'Folate']
+        },
+        cultivation: {
+            sowing: 'November to December',
+            irrigation: '4-6 irrigations during crop cycle',
+            fertilization: '120kg N, 60kg P2O5, 40kg K2O per hectare',
+            harvesting: 'March to April'
+        },
+        commonDiseases: ['Rust', 'Bunt', 'Leaf blight', 'Powdery mildew']
+    },
+    {
+        id: 'rice',
+        name: 'Rice',
+        description: 'Rice is grown widely in wet fields and is a primary food source for half the world\'s population.',
+        image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop',
+        heroImage: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&h=400&fit=crop',
+        detailImage:"{{ url_for('static', filename='img/rice.jpg') }}",
+        regions: ['West Bengal', 'Andhra Pradesh', 'Tamil Nadu', 'Odisha'],
+        weather: {
+            temperature: '20°C to 35°C',
+            humidity: 'High (70-80%)',
+            rainfall: '1000-2000mm annually'
+        },
+        price: { amount: 1800, unit: 'quintal', currency: '₹' },
+        soil: {
+            type: 'Clay or clay loam soil',
+            ph: '5.5 to 6.5 (slightly acidic)',
+            drainage: 'Poor drainage, water retention required'
+        },
+        season: 'Kharif (Monsoon crop)',
+        growthPeriod: '90-120 days',
+        yield: '40-50 quintals per hectare',
+        uses: ['Food grain', 'Rice wine', 'Rice paper', 'Animal feed', 'Industrial starch'],
+        nutritionalValue: {
+            carbohydrates: '80g per 100g',
+            protein: '7g per 100g',
+            fiber: '1.3g per 100g',
+            vitamins: ['Vitamin B1', 'Vitamin B3', 'Iron']
+        },
+        cultivation: {
+            sowing: 'June to July',
+            irrigation: 'Standing water throughout growth',
+            fertilization: '100kg N, 50kg P2O5, 50kg K2O per hectare',
+            harvesting: 'September to November'
+        },
+        commonDiseases: ['Blast', 'Bacterial blight', 'Sheath blight', 'Brown spot']
+    },
+    {
+        id: 'maize',
+        name: 'Maize',
+        description: 'A versatile cereal used in food, fodder, and industry with high nutritional value.',
+        image: "{{ url_for('static', filename='img/maizeS.jpeg') }}",
+        heroImage: "{{ url_for('static', filename='img/maizeS.jpeg') }}",
+        detailImage: "{{ url_for('static', filename='img/maize.jpeg') }}",
+        regions: ['Karnataka', 'Andhra Pradesh', 'Madhya Pradesh', 'Bihar'],
+        weather: {
+            temperature: '21°C to 27°C',
+            humidity: 'Moderate (60-70%)',
+            rainfall: '500-800mm annually'
+        },
+        price: { amount: 1600, unit: 'quintal', currency: '₹' },
+        soil: {
+            type: 'Well-drained loamy soil',
+            ph: '6.0 to 7.5 (neutral)',
+            drainage: 'Good drainage essential'
+        },
+        season: 'Kharif & Rabi',
+        growthPeriod: '90-120 days',
+        yield: '30-40 quintals per hectare',
+        uses: ['Human food', 'Animal feed', 'Industrial starch', 'Ethanol production', 'Corn oil'],
+        nutritionalValue: {
+            carbohydrates: '74g per 100g',
+            protein: '9g per 100g',
+            fiber: '7g per 100g',
+            vitamins: ['Vitamin A', 'Vitamin C', 'Magnesium']
+        },
+        cultivation: {
+            sowing: 'June-July (Kharif), November-December (Rabi)',
+            irrigation: '2-3 irrigations in dry season',
+            fertilization: '120kg N, 60kg P2O5, 40kg K2O per hectare',
+            harvesting: 'September-October (Kharif), March-April (Rabi)'
+        },
+        commonDiseases: ['Downy mildew', 'Leaf blight', 'Stalk rot', 'Ear rot']
+    },
+    {
+        id: 'sugarcane',
+        name: 'Sugarcane',
+        description: 'A tropical grass used primarily for sugar production and biofuel.',
+        image: "{{ url_for('static', filename='img/Sugar.jpeg') }}",
+        heroImage: "{{ url_for('static', filename='img/SugarH.jpeg') }}",
+        detailImage: "{{ url_for('static', filename='img/sugarK.jpeg') }}",
+        regions: ['Uttar Pradesh', 'Maharashtra', 'Tamil Nadu', 'Gujarat'],
+        weather: {
+            temperature: '25°C to 35°C',
+            humidity: 'High (75-85%)',
+            rainfall: '1000-1500mm annually'
+        },
+        price: { amount: 3000, unit: 'tonne', currency: '₹' },
+        soil: {
+            type: 'Deep, well-drained loamy to clayey soil',
+            ph: '6.5 to 7.5 (neutral)',
+            drainage: 'Good drainage with water retention'
+        },
+        season: 'Annual crop',
+        growthPeriod: '10-12 months',
+        yield: '70-80 tonnes per hectare',
+        uses: ['Sugar production', 'Jaggery', 'Ethanol', 'Bagasse for paper', 'Molasses'],
+        nutritionalValue: {
+            carbohydrates: '99g per 100g (sugar)',
+            protein: '0g per 100g',
+            fiber: '0g per 100g',
+            vitamins: ['Natural minerals', 'Trace elements']
+        },
+        cultivation: {
+            sowing: 'February-March or October-November',
+            irrigation: 'Heavy irrigation required, 25-30 irrigations',
+            fertilization: '150kg N, 60kg P2O5, 60kg K2O per hectare',
+            harvesting: 'December-March'
+        },
+        commonDiseases: ['Red rot', 'Smut', 'Wilt', 'Mosaic virus']
+    },
+    {
+        id: 'cotton',
+        name: 'Cotton',
+        description: 'Fiber crop used in textiles and garments worldwide, also produces cottonseed oil.',
+        image: "{{ url_for('static', filename='img/cottanH.jpeg') }}",
+        heroImage: "{{ url_for('static', filename='img/cottan.jpeg') }}",
+        detailImage: "{{ url_for('static', filename='img/cottans.webp') }}",
+        regions: ['Maharashtra', 'Gujarat', 'Telangana', 'Andhra Pradesh'],
+        weather: {
+            temperature: '21°C to 30°C',
+            humidity: 'Moderate (60-70%)',
+            rainfall: '500-1000mm annually'
+        },
+        price: { amount: 6000, unit: 'quintal', currency: '₹' },
+        soil: {
+            type: 'Deep, well-drained black cotton soil',
+            ph: '6.0 to 8.0 (neutral to slightly alkaline)',
+            drainage: 'Good drainage essential'
+        },
+        season: 'Kharif crop',
+        growthPeriod: '160-200 days',
+        yield: '15-20 quintals per hectare',
+        uses: ['Textile fiber', 'Cottonseed oil', 'Animal feed', 'Medical cotton', 'Industrial uses'],
+        nutritionalValue: {
+            carbohydrates: 'N/A (fiber crop)',
+            protein: '20% in cottonseed',
+            fiber: '90% cellulose in fiber',
+            vitamins: ['Vitamin E in cottonseed oil']
+        },
+        cultivation: {
+            sowing: 'May-June',
+            irrigation: '8-12 irrigations depending on rainfall',
+            fertilization: '120kg N, 60kg P2O5, 60kg K2O per hectare',
+            harvesting: 'October-December'
+        },
+        commonDiseases: ['Bollworm', 'Whitefly', 'Aphids', 'Bacterial blight']
+    },
+    {
+        id: 'soybean',
+        name: 'Soybean',
+        description: 'Protein-rich oilseed crop used in food and industry, excellent source of plant protein.',
+        image: "{{ url_for('static', filename='img/Soybean.jpeg') }}",
+        heroImage: "{{ url_for('static', filename='img/soybeanf.jpeg') }}",
+        detailImage: "{{ url_for('static', filename='img/Soybean.jpeg') }}",
+        regions: ['Madhya Pradesh', 'Maharashtra', 'Rajasthan', 'Telangana'],
+        weather: {
+            temperature: '26°C to 30°C',
+            humidity: 'Moderate to high (65-75%)',
+            rainfall: '600-1000mm annually'
+        },
+        price: { amount: 3800, unit: 'quintal', currency: '₹' },
+        soil: {
+            type: 'Fertile, well-drained loamy soil',
+            ph: '6.0 to 7.0 (neutral)',
+            drainage: 'Good drainage required'
+        },
+        season: 'Kharif crop',
+        growthPeriod: '90-120 days',
+        yield: '20-25 quintals per hectare',
+        uses: ['Edible oil', 'Protein meal', 'Tofu', 'Soy sauce', 'Animal feed'],
+        nutritionalValue: {
+            carbohydrates: '30g per 100g',
+            protein: '36g per 100g',
+            fiber: '9g per 100g',
+            vitamins: ['Vitamin K', 'Folate', 'Vitamin C']
+        },
+        cultivation: {
+            sowing: 'June-July',
+            irrigation: '2-3 irrigations if rainfall insufficient',
+            fertilization: '20kg N, 60kg P2O5, 40kg K2O per hectare',
+            harvesting: 'September-October'
+        },
+        commonDiseases: ['Yellow mosaic virus', 'Bacterial pustule', 'Rust', 'Pod borer']
+    },
+
+  {
+    id: 'potato',
+    name: 'Potato',
+    description: 'Tuber crop rich in carbohydrates; widely used in Indian cuisine and processed foods.',
+    image: "{{ url_for('static', filename='img/patato1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/patato2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/patato1.jpeg') }}",
+    regions: ['Uttar Pradesh', 'West Bengal', 'Bihar', 'Punjab'],
+    weather: {
+      temperature: '15°C to 20°C',
+      humidity: 'Moderate (60-70%)',
+      rainfall: '500-700mm during growth'
+    },
+    price: { amount: 1200, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy to sandy loam',
+      ph: '5.5 to 6.5 (slightly acidic)',
+      drainage: 'Good drainage required'
+    },
+    season: 'Rabi/Winter (late Kharif in some areas)',
+    growthPeriod: '90-120 days',
+    yield: '200-250 quintals per hectare',
+    uses: ['Cooking', 'Chips', 'Frozen foods', 'Starch extraction'],
+    nutritionalValue: {
+      carbohydrates: '17g per 100g',
+      protein: '2g per 100g',
+      fiber: '2.2g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin B6', 'Potassium']
+    },
+    cultivation: {
+      sowing: 'October-November',
+      irrigation: '4-6 irrigations depending on soil moisture',
+      fertilization: '150kg N, 60kg P2O5, 100kg K2O per hectare',
+      harvesting: 'January-March'
+    },
+    commonDiseases: ['Late blight', 'Common scab', 'Black scurf', 'Viral mosaic']
+  },
+  {
+    id: 'onion',
+    name: 'Onion',
+    description: 'Bulb vegetable fundamental to Indian cooking; good source of antioxidants and flavor base.',
+    image: "{{ url_for('static', filename='img/onion1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/onion2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/onion1.jpeg') }}",
+    regions: ['Maharashtra', 'Karnataka', 'Gujarat', 'Rajasthan'],
+    weather: {
+      temperature: '15°C to 25°C',
+      humidity: 'Moderate',
+      rainfall: '400-600mm during growth'
+    },
+    price: { amount: 2500, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Loamy to sandy loam',
+      ph: '6.0 to 7.5 (neutral to slightly alkaline)',
+      drainage: 'Well-drained'
+    },
+    season: 'Rabi and Kharif (varies by variety)',
+    growthPeriod: '90-120 days',
+    yield: '150-200 quintals per hectare',
+    uses: ['Culinary base', 'Pickles', 'Dehydrated onion products'],
+    nutritionalValue: {
+      carbohydrates: '9g per 100g',
+      protein: '1.1g per 100g',
+      fiber: '1.7g per 100g',
+      vitamins: ['Vitamin C', 'B6', 'Folate']
+    },
+    cultivation: {
+      sowing: 'October-November (Rabi), February-March (Kharif)',
+      irrigation: '6-8 irrigations',
+      fertilization: '80kg N, 40kg P2O5, 40kg K2O per hectare',
+      harvesting: 'March-April (Rabi), May-June (Kharif)'
+    },
+    commonDiseases: ['Neck rot', 'Purple blotch', 'Downy mildew', 'Onion thrips']
+  },
+  {
+    id: 'tea',
+    name: 'Tea',
+    description: 'Perennial shrub whose leaves are processed to make tea; grown in hilly, misty regions.',
+    image: "{{ url_for('static', filename='img/tea1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/tea2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/tea1.jpeg') }}",
+    regions: ['Assam', 'West Bengal (Darjeeling)', 'Tamil Nadu (Nilgiris)', 'Kerala'],
+    weather: {
+      temperature: '18°C to 25°C',
+      humidity: 'High (75-90%)',
+      rainfall: '1500-2500mm annually'
+    },
+    price: { amount: 450, unit: 'kg', currency: '₹' },
+    soil: {
+      type: 'Acidic, well-drained loamy soil',
+      ph: '4.5 to 5.5 (acidic)',
+      drainage: 'Excellent drainage'
+    },
+    season: 'Plucking throughout year (flushes)',
+    growthPeriod: 'Perennial (first harvest ~1.5 years after planting)',
+    yield: '2000-3000 kg made tea per hectare annually',
+    uses: ['Beverage', 'Flavoring', 'Extracts'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: ['Antioxidants (catechins)', 'Small amounts of Vitamin C']
+    },
+    cultivation: {
+      sowing: 'Seedlings/transplanting year-round in suitable climate',
+      irrigation: 'Supplementary water during dry spells',
+      fertilization: 'Balanced NPK with organic matter',
+      harvesting: 'Plucking of new shoots (multiple flushes)'
+    },
+    commonDiseases: ['Blister blight', 'Root rot', 'Red rust', 'Tea mosquito bug']
+  },
+  {
+    id: 'coffee',
+    name: 'Coffee',
+    description: 'Shade-grown perennial shrub producing beans used for beverage; sensitive to altitude and shade.',
+    image: "{{ url_for('static', filename='img/coffee1.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/coffee2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/coffee1.jpeg') }}",
+    regions: ['Karnataka', 'Kerala', 'Tamil Nadu'],
+    weather: {
+      temperature: '18°C to 24°C',
+      humidity: 'Moderate to high',
+      rainfall: '1200-2500mm annually'
+    },
+    price: { amount: 600, unit: 'kg', currency: '₹' },
+    soil: {
+      type: 'Rich, well-drained loamy soil with organic matter',
+      ph: '6.0 to 6.5 (slightly acidic)',
+      drainage: 'Good'
+    },
+    season: 'Arabica (Nov-Feb), Robusta (year-round harvests vary)',
+    growthPeriod: '3-4 years to first yield, perennial thereafter',
+    yield: '600-1000 kg green beans per hectare',
+    uses: ['Beverage', 'Extracts', 'Flavoring'],
+    nutritionalValue: {
+      carbohydrates: 'N/A',
+      protein: 'N/A',
+      fiber: 'N/A',
+      vitamins: ['Antioxidants']
+    },
+    cultivation: {
+      sowing: 'Shade seedlings, transplant after 6-8 months',
+      irrigation: 'Supplementary during dry season',
+      fertilization: 'Organic manure + NPK based on soil test',
+      harvesting: 'Selective picking of ripe cherries'
+    },
+    commonDiseases: ['Coffee rust', 'Berry borer', 'Root rot', 'Leaf miner']
+  },
+  {
+    id: 'turmeric',
+    name: 'Turmeric',
+    description: 'Rhizome crop used as spice and medicinal herb; high in curcumin with anti-inflammatory properties.',
+    image: "{{ url_for('static', filename='img/tumeric.jpeg') }}",
+    heroImage: "{{ url_for('static', filename='img/tumeric2.jpeg') }}",
+    detailImage: "{{ url_for('static', filename='img/tumeric.jpeg') }}",
+    regions: ['Tamil Nadu', 'Andhra Pradesh', 'Odisha', 'Karnataka'],
+    weather: {
+      temperature: '20°C to 30°C',
+      humidity: 'High (70-85%)',
+      rainfall: '1500-2000mm during growth'
+    },
+    price: { amount: 5000, unit: 'quintal', currency: '₹' },
+    soil: {
+      type: 'Well-drained loamy soil rich in organic matter',
+      ph: '4.5 to 7.5',
+      drainage: 'Good'
+    },
+    season: 'Kharif (planted with onset of monsoon)',
+    growthPeriod: '7-9 months',
+    yield: '20-25 quintals per hectare (rhizome)',
+    uses: ['Spice', 'Medicinal', 'Dye', 'Cosmetics'],
+    nutritionalValue: {
+      carbohydrates: '65g per 100g (dry)',
+      protein: '8g per 100g',
+      fiber: '21g per 100g',
+      vitamins: ['Vitamin C', 'Vitamin E', 'Iron']
+    },
+    cultivation: {
+      sowing: 'June-July',
+      irrigation: 'Frequent in early growth, then moderate',
+      fertilization: '100kg N, 50kg P2O5, 50kg K2O per hectare + organic manure',
+      harvesting: 'February-April'
+    },
+    commonDiseases: ['Rhizome rot', 'Leaf blotch', 'Leaf spot', 'Bacterial wilt']
+  },
+];
+
+// Navigation functions
+function showSection(sectionName) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show selected section
+    document.getElementById(sectionName + '-section').classList.add('active');
+    
+    // Update navigation buttons
+    document.querySelectorAll('.navigation .btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.getElementById(sectionName + '-nav').classList.add('active');
+    
+    // Hide detail page if showing
+    hideDetailPage();
+}
+
+// Generate crop cards
+function generateCropCards() {
+    const cropsGrid = document.getElementById('crops-grid');
+    cropsGrid.innerHTML = '';
+    
+    crops.forEach(crop => {
+        const cropCard = document.createElement('div');
+        cropCard.className = 'card';
+        cropCard.onclick = () => showCropDetail(crop.id);
+        
+        cropCard.innerHTML = `
+            <div class="card-image">
+                <img src="${crop.image}" alt="${crop.name}">
+                <div class="crop-badge">${crop.season}</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">${crop.name}</h3>
+                <p class="card-description">${crop.description}</p>
+                
+                <div class="card-info">
+                    <div class="info-item">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <span>${crop.regions.slice(0, 2).join(', ')}</span>
+                        ${crop.regions.length > 2 ? `<span style="color: #d4a851;">+${crop.regions.length - 2} more</span>` : ''}
+                    </div>
+                    
+                    <div class="info-item">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 4.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-1"/>
+                            <path d="M10 5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1"/>
+                            <rect x="6" y="6" width="12" height="12" rx="1"/>
+                        </svg>
+                        <span>${crop.weather.temperature}</span>
+                    </div>
+                    
+                    <div class="info-item price">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                        <span>${crop.price.currency}${crop.price.amount.toLocaleString()} per ${crop.price.unit}</span>
+                    </div>
+                </div>
+                
+                <div class="growth-period">
+                    <strong>Growth Period:</strong> ${crop.growthPeriod}
+                </div>
+            </div>
+        `;
+        
+        cropsGrid.appendChild(cropCard);
+    });
+}
+
+// Show crop detail page
+function showCropDetail(cropId) {
+    const crop = crops.find(c => c.id === cropId);
+    if (!crop) return;
+    
+    // Hide main sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Create or show detail page
+    let detailPage = document.getElementById('detail-page');
+    if (!detailPage) {
+        detailPage = document.createElement('div');
+        detailPage.id = 'detail-page';
+        detailPage.className = 'detail-page';
+        document.querySelector('.container').appendChild(detailPage);
+    }
+    
+    detailPage.innerHTML = `
+        <button class="btn btn-outline back-button" onclick="hideDetailPage()">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m12 19-7-7 7-7"/>
+                <path d="M19 12H5"/>
+            </svg>
+            Back to Crops
+        </button>
+        
+        <div class="detail-header" style="background-image: url('${crop.heroImage}')">
+            <div class="detail-overlay"></div>
+            <div class="detail-content">
+                <div class="detail-badge">${crop.season}</div>
+                <h1 class="detail-title">${crop.name}</h1>
+                <p class="detail-description">${crop.description}</p>
+            </div>
+        </div>
+        
+        <div class="detail-grid">
+            <div class="main-content">
+                <div class="detail-card">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L8 7h8l-4-5zM12 7v15M8 12h8"/>
+                        </svg>
+                        Crop Overview
+                    </h3>
+                    <div class="detail-info">
+                        <div class="info-group">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <div class="info-text">
+                                <h4>Growing Regions</h4>
+                                <p>${crop.regions.join(', ')}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <div class="info-text">
+                                <h4>Growth Period</h4>
+                                <p>${crop.growthPeriod}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                            <div class="info-text">
+                                <h4>Average Yield</h4>
+                                <p>${crop.yield}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-group">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                            <div class="info-text">
+                                <h4>Market Price</h4>
+                                <p style="font-size: 1.1rem; font-weight: bold; color: #2d7a2d;">${crop.price.currency}${crop.price.amount.toLocaleString()} per ${crop.price.unit}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <h4 style="margin-bottom: 0.75rem;">Primary Uses</h4>
+                        <div class="tags">
+                            ${crop.uses.slice(0, 5).map(use => `<span class="tag">${use}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="detail-card">
+                        <h3>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14 4.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-1"/>
+                                <path d="M10 5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1"/>
+                                <rect x="6" y="6" width="12" height="12" rx="1"/>
+                            </svg>
+                            Weather Requirements
+                        </h3>
+                        <div style="space-y: 1rem;">
+                            <div style="margin-bottom: 1rem;">
+                                <h4>Temperature</h4>
+                                <p style="color: #6b7280;">${crop.weather.temperature}</p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4>Humidity</h4>
+                                <p style="color: #6b7280;">${crop.weather.humidity}</p>
+                            </div>
+                            <div>
+                                <h4>Rainfall</h4>
+                                <p style="color: #6b7280;">${crop.weather.rainfall}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-card">
+                        <h3>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="7" cy="12" r="3"/>
+                                <path d="M10 9v6"/>
+                                <circle cx="17" cy="12" r="3"/>
+                                <path d="M14 7l2 5 2-5"/>
+                            </svg>
+                            Soil Requirements
+                        </h3>
+                        <div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4>Soil Type</h4>
+                                <p style="color: #6b7280;">${crop.soil.type}</p>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <h4>pH Level</h4>
+                                <p style="color: #6b7280;">${crop.soil.ph}</p>
+                            </div>
+                            <div>
+                                <h4>Drainage</h4>
+                                <p style="color: #6b7280;">${crop.soil.drainage}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        Cultivation Timeline
+                    </h3>
+                    <div class="detail-info">
+                        <div class="info-group">
+                            <div class="info-text">
+                                <h4>Sowing</h4>
+                                <p>${crop.cultivation.sowing}</p>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-text">
+                                <h4>Irrigation</h4>
+                                <p>${crop.cultivation.irrigation}</p>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-text">
+                                <h4>Fertilization</h4>
+                                <p>${crop.cultivation.fertilization}</p>
+                            </div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-text">
+                                <h4>Harvesting</h4>
+                                <p>${crop.cultivation.harvesting}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="detail-card">
+                    <h3>Crop Close-up</h3>
+                    <img src="${crop.detailImage}" alt="${crop.name} detail">
+                </div>
+                
+                <div class="detail-card">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L8 7h8l-4-5zM12 7v15M8 12h8"/>
+                        </svg>
+                        Nutritional Value
+                    </h3>
+                    <div>
+                        ${crop.nutritionalValue.carbohydrates ? `
+                        <div class="nutrition-item">
+                            <span>Carbohydrates</span>
+                            <span>${crop.nutritionalValue.carbohydrates}</span>
+                        </div>` : ''}
+                        ${crop.nutritionalValue.protein ? `
+                        <div class="nutrition-item">
+                            <span>Protein</span>
+                            <span>${crop.nutritionalValue.protein}</span>
+                        </div>` : ''}
+                        ${crop.nutritionalValue.fiber ? `
+                        <div class="nutrition-item">
+                            <span>Fiber</span>
+                            <span>${crop.nutritionalValue.fiber}</span>
+                        </div>` : ''}
+                        ${crop.nutritionalValue.vitamins ? `
+                        <div style="margin-top: 1rem;">
+                            <h4 style="margin-bottom: 0.5rem;">Vitamins</h4>
+                            <div class="tags">
+                                ${crop.nutritionalValue.vitamins.map(vitamin => `<span class="tag" style="font-size: 0.75rem;">${vitamin}</span>`).join('')}
+                            </div>
+                        </div>` : ''}
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <h3>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 6h10M6 12h12M4 18h16"/>
+                        </svg>
+                        Common Diseases
+                    </h3>
+                    <div>
+                        ${crop.commonDiseases.map(disease => `
+                        <div class="disease-item">
+                            <div class="disease-dot"></div>
+                            <span style="color: #6b7280;">${disease}</span>
+                        </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    detailPage.classList.add('active');
+}
+
+// Hide detail page
+function hideDetailPage() {
+    const detailPage = document.getElementById('detail-page');
+    if (detailPage) {
+        detailPage.classList.remove('active');
+    }
+    
+    // Show crops section
+    document.getElementById('crops-section').classList.add('active');
+    document.getElementById('crops-nav').classList.add('active');
+    document.getElementById('diseases-nav').classList.remove('active');
+}
+
+// Header button functions
+function handleLogout() {
+    alert('Logout functionality would be implemented here');
+}
+
+function handleCheck() {
+    alert('Plant health check functionality would be implemented here');
+}
+
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    generateCropCards();
+});
+
+// Handle browser back button
+window.addEventListener('popstate', function() {
+    hideDetailPage();
+});
+
+    // Navigation functions
+    function showSection(sectionName) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show selected section
+      document.getElementById(sectionName + '-section').classList.add('active');
+      
+      // Update navigation buttons
+      document.querySelectorAll('.navigation .btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      document.getElementById(sectionName + '-nav').classList.add('active');
+    }
+
+    // Modal functions
+    function openCropModal(cropId) {
+      const crop = crops[cropId];
+      if (!crop) return;
+
+      const modal = document.getElementById('crop-modal');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
+
+      title.textContent = `🌾 ${crop.name} Details`;
+      
+      body.innerHTML = `
+        <div class="modal-images">
+          <img src="${crop.image}" alt="${crop.name}">
+          <img src="${crop.fieldImage}" alt="${crop.name} Field">
+        </div>
+        
+        <div class="modal-grid">
+          <div>
+            <div class="info-box">
+              <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <div class="info-content">
+                <h4>Growing Regions</h4>
+                <p>${crop.regions}</p>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 4.5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-1"/>
+                <path d="M10 5a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1"/>
+                <rect x="6" y="6" width="12" height="12" rx="1"/>
+              </svg>
+              <div class="info-content">
+                <h4>Optimal Weather</h4>
+                <p>${crop.weather}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <div class="info-box highlight">
+              <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"/>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+              </svg>
+              <div class="info-content">
+                <h4>Market Price</h4>
+                <div class="price-badge">${crop.price}</div>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="7" cy="12" r="3"/>
+                <path d="M10 9v6"/>
+                <circle cx="17" cy="12" r="3"/>
+                <path d="M14 7l2 5 2-5"/>
+              </svg>
+              <div class="info-content">
+                <h4>Soil Requirements</h4>
+                <p>${crop.soil}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.75rem; color: hsl(var(--foreground)); display: flex; align-items: center; gap: 0.5rem;">
+            🌾 Grain Close-up
+          </h4>
+          <img src="${crop.grainImage}" alt="${crop.name} Grains" style="width: 100%; height: 16rem; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
+    function closeCropModal() {
+      document.getElementById('crop-modal').classList.remove('active');
+    }
+
+    // Header button functions
+    function handleLogout() {
+      alert('Logout functionality would be implemented here');
+    }
+
+    function handleCheck() {
+      alert('Plant health check functionality would be implemented here');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('crop-modal');
+      if (event.target === modal) {
+        closeCropModal();
+      }
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        closeCropModal();
+      }
+    });
+    
+  </script>
+</body>
+</html>

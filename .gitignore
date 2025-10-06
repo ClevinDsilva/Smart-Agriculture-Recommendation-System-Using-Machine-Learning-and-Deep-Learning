@@ -1,0 +1,36 @@
+# Ignore virtual environments
+venv/
+.venv/
+agri_env/
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore large ML models and binaries
+*.h5
+*.keras
+*.pkl
+*.pt
+*.pth
+*.pyd
+*.dll
+*.lib
+*.so
+
+# Ignore datasets
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.zip
+*.rar
+*.tar
+*.gz
+
+# IDE settings
+.vscode/
+.idea/
